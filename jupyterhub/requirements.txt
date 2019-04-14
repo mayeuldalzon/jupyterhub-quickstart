@@ -1,0 +1,2 @@
+-e git+https://github.com/guimou/jupyterhub-quickstart.git@valeria_spawner#egg=ulkubespawner
+openshift==0.8.6
