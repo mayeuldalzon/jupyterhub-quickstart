@@ -2,7 +2,7 @@
     "kind": "Template",
     "apiVersion": "template.openshift.io/v1",
     "metadata": {
-        "name": "jupyterhub-deployer",
+        "name": "jupyterhub-ul-deployer",
         "annotations": {
             "openshift.io/display-name": "JupyterHub UL Deployer",
             "description": "Template for deploying a JupyterHub UL flavored instance.",
