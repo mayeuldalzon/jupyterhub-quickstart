@@ -5,7 +5,7 @@
         "name": "jupyterhub-ul-deployer",
         "annotations": {
             "openshift.io/display-name": "JupyterHub UL Deployer",
-            "description": "Template for deploying a JupyterHub UL flavored instance.",
+            "description": "Template for deploying a JupyterHub UL instance.",
             "iconClass": "icon-python",
             "tags": "python,jupyter,jupyterhub"
         }
