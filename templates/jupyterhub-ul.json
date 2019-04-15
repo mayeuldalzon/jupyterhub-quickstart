@@ -277,6 +277,46 @@
                                     {
                                         "name": "JUPYTERHUB_COOKIE_SECRET",
                                         "value": "${COOKIE_SECRET}"
+                                    },
+                                    {
+                                        "name": "JUPYTERHUB_ADMIN_USERS",
+                                        "value": "${JUPYTERHUB_ADMIN_USERS}"
+                                    },
+                                    {
+                                        "name": "JUPYTERHUB_SERVICE_NAME",
+                                        "value": "${JUPYTERHUB_SERVICE_NAME}"
+                                    },
+                                    {
+                                        "name": "KEYCLOAK_REALM",
+                                        "value": "${KEYCLOAK_REALM}"
+                                    },
+                                    {
+                                        "name": "OAUTH_CLIENT_ID",
+                                        "value": "${OAUTH_CLIENT_ID}"
+                                    },
+                                    {
+                                        "name": "OAUTH_CLIENT_SECRET",
+                                        "value": "${OAUTH_CLIENT_SECRET}"
+                                    },
+                                    {
+                                        "name": "JUPYTERHUB_IDLE_TIMEOUT",
+                                        "value": "${JUPYTERHUB_IDLE_TIMEOUT}"
+                                    },
+                                    {
+                                        "name": "S3_ACCESS_KEY_ID",
+                                        "value": "${S3_ACCESS_KEY_ID}"
+                                    },
+                                    {
+                                        "name": "S3_SECRET_ACCESS_KEY",
+                                        "value": "${S3_SECRET_ACCESS_KEY}"
+                                    },
+                                    {
+                                        "name": "S3_ENPOINT_URL",
+                                        "value": "${S3_ENPOINT_URL}"
+                                    },
+                                    {
+                                        "name": "S3_BUCKET",
+                                        "value": "${S3_BUCKET}"
                                     }
                                 ],
                                 "volumeMounts": [
