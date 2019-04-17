@@ -170,22 +170,9 @@ c.JupyterHub.authenticator_class = 'tmpauthenticator.TmpAuthenticator'
 
 c.JupyterHub.spawner_class = 'kubespawner.KubeSpawner'
 
-
-c.KubeSpawner.profile_list = [
-    {
-        'display_name': 'Minimal Notebook (CentOS 7 / Python 3.5)',
-        'kubespawner_override': {
-            'image_spec': 's2i-minimal-notebook:3.5'
-        }
-    },
-    {
-        'display_name': 'Minimal Notebook (CentOS 7 / Python 3.6)',
-        'default': True,
-        'kubespawner_override': {
-            'image_spec': 's2i-minimal-notebook:3.6'
-        }
-    }
-]
+c.KubeSpawner.image_spec = resolve_image_name(
+        os.environ.get('JUPYTERHUB_NOTEBOOK_IMAGE',
+        's2i-minimal-notebook:3.6'))
 
 if os.environ.get('JUPYTERHUB_NOTEBOOK_MEMORY'):
     c.Spawner.mem_limit = convert_size_to_bytes(os.environ['JUPYTERHUB_NOTEBOOK_MEMORY'])
