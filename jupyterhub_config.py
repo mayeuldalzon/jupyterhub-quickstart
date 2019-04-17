@@ -171,10 +171,6 @@ c.JupyterHub.authenticator_class = 'tmpauthenticator.TmpAuthenticator'
 c.JupyterHub.spawner_class = 'kubespawner.KubeSpawner'
 
 
-c.KubeSpawner.image_spec = resolve_image_name(
-        os.environ.get('JUPYTERHUB_NOTEBOOK_IMAGE',
-        's2i-minimal-notebook:3.6'))
-
 c.KubeSpawner.profile_list = [
     {
         'display_name': 'Minimal Notebook (CentOS 7 / Python 3.5)',
