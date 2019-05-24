@@ -12,7 +12,7 @@ s3_secret_access_key = os.environ.get('S3_SECRET_ACCESS_KEY')
 s3_endpoint_url = os.environ.get('S3_ENPOINT_URL')
 s3_bucket = os.environ.get('S3_BUCKET')
 c.Spawner.environment.update(dict(S3_ACCESS_KEY_ID=s3_access_key_id,S3_SECRET_ACCESS_KEY=s3_secret_access_key,S3_ENPOINT_URL=s3_endpoint_url,S3_BUCKET=s3_bucket))
-
+c.KubeSpawner.env_keep = ['PYSPARK_SUBMIT_ARGS', 'PYSPARK_DRIVER_PYTHON', 'PYSPARK_DRIVER_PYTHON_OPTS', 'SPARK_HOME', 'SPARK_CLUSTER', 'PYTHONPATH']
 # Enable JupyterLab interface if enabled.
 
 if os.environ.get('JUPYTERHUB_ENABLE_LAB', 'false').lower() in ['true', 'yes', 'y', '1']:
