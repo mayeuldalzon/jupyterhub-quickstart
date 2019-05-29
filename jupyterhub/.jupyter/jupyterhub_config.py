@@ -75,7 +75,22 @@ c.OAuthenticator.client_secret = os.environ.get('OAUTH_CLIENT_SECRET')
 c.OAuthenticator.tls_verify = False
 
 # Get access and secret key for logged in user and inject in notebook
-print('username' + {username})
+import pwd
+def loggedin_hook(authenticator, handler, authentication):
+    user_data = pwd.getpwnam(authentication['name'])
+    print(user_data)
+    spawn_data = {
+        'pw_data': user_data
+        'gid_list': os.getgrouplist(authentication['name'], user_data.pw_gid)
+    }
+
+    if authentication['auth_state'] is None:
+        authentication['auth_state'] = {}
+    authentication['auth_state']['spawn_data'] = spawn_data
+
+    return authentication
+
+c.OAuthenticator.post_auth_hook = loggedin_hook
 """ import hvac
 user_id = '{username}' 
 vault_url = os.environ['VAULT_URL']
