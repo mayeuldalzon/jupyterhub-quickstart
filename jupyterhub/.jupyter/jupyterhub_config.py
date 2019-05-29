@@ -81,7 +81,7 @@ def loggedin_hook(authenticator, handler, authentication):
     print(user_data)
     return authentication
 
-c.OAuthenticator.post_auth_hook = loggedin_hook
+c.Authenticator.post_auth_hook = loggedin_hook
 """ import hvac
 user_id = '{username}' 
 vault_url = os.environ['VAULT_URL']
