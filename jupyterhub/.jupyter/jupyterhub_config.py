@@ -65,14 +65,14 @@ os.environ['OAUTH2_USERNAME_KEY'] = 'preferred_username'
 from oauthenticator.generic import GenericOAuthenticator
 c.JupyterHub.authenticator_class = GenericOAuthenticator
 
-c.OAuthenticator.login_service = "KeyCloak"
+c.GenericOAuthenticator.login_service = "KeyCloak"
 
-c.OAuthenticator.oauth_callback_url = 'https://%s/hub/oauth_callback' % jupyterhub_hostname
+c.GenericOAuthenticator.oauth_callback_url = 'https://%s/hub/oauth_callback' % jupyterhub_hostname
 
-c.OAuthenticator.client_id = os.environ.get('OAUTH_CLIENT_ID')
-c.OAuthenticator.client_secret = os.environ.get('OAUTH_CLIENT_SECRET')
+c.GenericOAuthenticator.client_id = os.environ.get('OAUTH_CLIENT_ID')
+c.GenericOAuthenticator.client_secret = os.environ.get('OAUTH_CLIENT_SECRET')
 
-c.OAuthenticator.tls_verify = False
+c.GenericOAuthenticator.tls_verify = False
 
 # Get access and secret key for logged in user and inject in notebook
 import pwd
@@ -81,7 +81,7 @@ def loggedin_hook(authenticator, handler, authentication):
     print(user_data)
     return authentication
 
-c.Authenticator.post_auth_hook = loggedin_hook
+c.GenericOAuthenticator.post_auth_hook = loggedin_hook
 """ import hvac
 user_id = '{username}' 
 vault_url = os.environ['VAULT_URL']
