@@ -76,7 +76,7 @@ c.OAuthenticator.tls_verify = False
 
 # Get access and secret key for logged in user and inject in notebook
 import hvac
-user_id = {username} 
+user_id = c.Spawner.user.name 
 vault_url = os.environ['VAULT_URL']
 client = hvac.Client(url=vault_url)
 client.token = os.environ['VAULT_CLIENT_TOKEN']
