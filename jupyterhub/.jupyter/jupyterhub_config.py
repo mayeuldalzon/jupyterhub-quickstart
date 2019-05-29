@@ -1,29 +1,31 @@
 import os
 from ulkubespawner import ULKubeSpawner
 
+# Load custom spawner class to integrate images list and container specs
 c.JupyterHub.spawner_class = ULKubeSpawner
 
+# Initialize environment
 c.Spawner.environment = {}
 
-# Connect to S3 storage
+# Retrieve S3ContentManager infomation and update env var to pass to notebooks
 s3_access_key_id = os.environ.get('S3_ACCESS_KEY_ID')
-print(s3_access_key_id)
 s3_secret_access_key = os.environ.get('S3_SECRET_ACCESS_KEY')
 s3_endpoint_url = os.environ.get('S3_ENPOINT_URL')
 s3_bucket = os.environ.get('S3_BUCKET')
 c.Spawner.environment.update(dict(S3_ACCESS_KEY_ID=s3_access_key_id,S3_SECRET_ACCESS_KEY=s3_secret_access_key,S3_ENPOINT_URL=s3_endpoint_url,S3_BUCKET=s3_bucket))
-c.KubeSpawner.env_keep = ['PYSPARK_SUBMIT_ARGS', 'PYSPARK_DRIVER_PYTHON', 'PYSPARK_DRIVER_PYTHON_OPTS', 'SPARK_HOME', 'SPARK_CLUSTER', 'PYTHONPATH']
-# Enable JupyterLab interface if enabled.
 
+# Keep Spark vars in notebooks
+c.Spawner.env_keep = ['PYSPARK_SUBMIT_ARGS', 'PYSPARK_DRIVER_PYTHON', 'PYSPARK_DRIVER_PYTHON_OPTS', 'SPARK_HOME', 'SPARK_CLUSTER', 'PYTHONPATH']
+
+
+# Enable JupyterLab interface if enabled.  TODO: Replace by result from form
 if os.environ.get('JUPYTERHUB_ENABLE_LAB', 'false').lower() in ['true', 'yes', 'y', '1']:
     c.Spawner.environment.update(dict(JUPYTER_ENABLE_LAB='true'))
 
 # Setup location for customised template files.
-
 c.JupyterHub.template_paths = ['/opt/app-root/src/templates']
 
 # Configure KeyCloak as authentication provider.
-
 from openshift import client, config
 
 with open('/var/run/secrets/kubernetes.io/serviceaccount/namespace') as fp:
@@ -71,6 +73,23 @@ c.OAuthenticator.client_id = os.environ.get('OAUTH_CLIENT_ID')
 c.OAuthenticator.client_secret = os.environ.get('OAUTH_CLIENT_SECRET')
 
 c.OAuthenticator.tls_verify = False
+
+# Get access and secret key for logged in user and inject in notebook
+import hvac
+user_id = {username} 
+vault_url = os.environ['VAULT_URL']'
+client = hvac.Client(url=vault_url)
+client.token = os.environ['VAULT_CLIENT_TOKEN']'
+
+if (client.is_authenticated())
+    secret_version_response = client.secrets.kv.v2.read_secret_version(
+        mount_point='valeria',
+        path='users/' + user_id,
+    )
+    AWS_ACCESS_KEY_ID = secret_version_response['data']['data']['AWS_ACCESS_KEY_ID']
+    AWS_SECRET_ACCESS_KEY = secret_version_response['data']['data']['AWS_SECRET_ACCESS_KEY']
+    c.Spawner.environment.update(dict(AWS_ACCESS_KEY_ID=AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY=AWS_SECRET_ACCESS_KEY))
+
 
 # Populate admin users and use white list from config maps.
 
