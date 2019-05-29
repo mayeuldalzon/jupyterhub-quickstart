@@ -75,7 +75,8 @@ c.OAuthenticator.client_secret = os.environ.get('OAUTH_CLIENT_SECRET')
 c.OAuthenticator.tls_verify = False
 
 # Get access and secret key for logged in user and inject in notebook
-import hvac
+print('username' + {username})
+""" import hvac
 user_id = '{username}' 
 vault_url = os.environ['VAULT_URL']
 client = hvac.Client(url=vault_url)
@@ -88,7 +89,7 @@ if client.is_authenticated():
     )
     AWS_ACCESS_KEY_ID = secret_version_response['data']['data']['AWS_ACCESS_KEY_ID']
     AWS_SECRET_ACCESS_KEY = secret_version_response['data']['data']['AWS_SECRET_ACCESS_KEY']
-    c.Spawner.environment.update(dict(AWS_ACCESS_KEY_ID=AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY=AWS_SECRET_ACCESS_KEY))
+    c.Spawner.environment.update(dict(AWS_ACCESS_KEY_ID=AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY=AWS_SECRET_ACCESS_KEY)) """
 
 
 # Populate admin users and use white list from config maps.
