@@ -8,11 +8,8 @@ c.JupyterHub.spawner_class = ULKubeSpawner
 c.Spawner.environment = {}
 
 # Retrieve S3ContentManager infomation and update env var to pass to notebooks
-s3_access_key_id = os.environ.get('S3_ACCESS_KEY_ID')
-s3_secret_access_key = os.environ.get('S3_SECRET_ACCESS_KEY')
 s3_endpoint_url = os.environ.get('S3_ENPOINT_URL')
-s3_bucket = os.environ.get('S3_BUCKET')
-c.Spawner.environment.update(dict(S3_ACCESS_KEY_ID=s3_access_key_id,S3_SECRET_ACCESS_KEY=s3_secret_access_key,S3_ENPOINT_URL=s3_endpoint_url,S3_BUCKET=s3_bucket))
+c.Spawner.environment.update(dict(S3_ENPOINT_URL=s3_endpoint_url)
 
 # Keep Spark vars in notebooks
 c.Spawner.env_keep = ['PYSPARK_SUBMIT_ARGS', 'PYSPARK_DRIVER_PYTHON', 'PYSPARK_DRIVER_PYTHON_OPTS', 'SPARK_HOME', 'SPARK_CLUSTER', 'PYTHONPATH']
