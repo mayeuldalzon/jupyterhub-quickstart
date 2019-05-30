@@ -75,31 +75,28 @@ c.GenericOAuthenticator.client_secret = os.environ.get('OAUTH_CLIENT_SECRET')
 c.GenericOAuthenticator.tls_verify = False
 
 # Get access and secret key for logged in user and inject in notebook
-import pwd
+import hvac
 def loggedin_hook(authenticator, handler, authentication):
-    user_data=authentication['name']
-    print(user_data)
+    user_id=authentication['name']
+    vault_url = os.environ['VAULT_URL']
+    client = hvac.Client(url=vault_url)
+    client.token = os.environ['VAULT_CLIENT_TOKEN']
+
+    if client.is_authenticated():
+        secret_version_response = client.secrets.kv.v2.read_secret_version(
+            mount_point='valeria',
+            path='users/' + user_id,
+        )   
+        AWS_ACCESS_KEY_ID = secret_version_response['data']['data']['AWS_ACCESS_KEY_ID']
+        AWS_SECRET_ACCESS_KEY = secret_version_response['data']['data']['AWS_SECRET_ACCESS_KEY']
+        c.Spawner.environment.update(dict(AWS_ACCESS_KEY_ID=AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY=AWS_SECRET_ACCESS_KEY))
     return authentication
 
 c.GenericOAuthenticator.post_auth_hook = loggedin_hook
-""" import hvac
-user_id = '{username}' 
-vault_url = os.environ['VAULT_URL']
-client = hvac.Client(url=vault_url)
-client.token = os.environ['VAULT_CLIENT_TOKEN']
 
-if client.is_authenticated():
-    secret_version_response = client.secrets.kv.v2.read_secret_version(
-        mount_point='valeria',
-        path='users/' + user_id,
-    )
-    AWS_ACCESS_KEY_ID = secret_version_response['data']['data']['AWS_ACCESS_KEY_ID']
-    AWS_SECRET_ACCESS_KEY = secret_version_response['data']['data']['AWS_SECRET_ACCESS_KEY']
-    c.Spawner.environment.update(dict(AWS_ACCESS_KEY_ID=AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY=AWS_SECRET_ACCESS_KEY)) """
 
 
 # Populate admin users and use white list from config maps.
-
 if os.path.exists('/opt/app-root/configs/admin_users.txt'):
     with open('/opt/app-root/configs/admin_users.txt') as fp:
         content = fp.read().strip()
