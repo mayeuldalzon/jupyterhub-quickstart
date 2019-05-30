@@ -77,7 +77,7 @@ c.GenericOAuthenticator.tls_verify = False
 # Get access and secret key for logged in user and inject in notebook
 import pwd
 def loggedin_hook(authenticator, handler, authentication):
-    user_data = pwd.getpwnam(authentication['name'])
+    user_data=authentication['name']
     print(user_data)
     return authentication
 
