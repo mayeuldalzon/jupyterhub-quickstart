@@ -9,7 +9,7 @@ c.Spawner.environment = {}
 
 # Retrieve S3ContentManager infomation and update env var to pass to notebooks
 s3_endpoint_url = os.environ.get('S3_ENPOINT_URL')
-c.Spawner.environment.update(dict(S3_ENPOINT_URL=s3_endpoint_url)
+c.Spawner.environment.update(dict(S3_ENPOINT_URL=s3_endpoint_url))
 
 # Keep Spark vars in notebooks
 c.Spawner.env_keep = ['PYSPARK_SUBMIT_ARGS', 'PYSPARK_DRIVER_PYTHON', 'PYSPARK_DRIVER_PYTHON_OPTS', 'SPARK_HOME', 'SPARK_CLUSTER', 'PYTHONPATH']
