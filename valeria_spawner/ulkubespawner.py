@@ -13,7 +13,7 @@ class ULKubeSpawner(KubeSpawner):
                      's2i-pyspark-notebook-s3:3.6',
                      's2i-spark-minimal-notebook:3.6',
                      's2i-spark-scipy-notebook:3.6',
-                     'jupyter-notebooks-s3:latest']
+                     's2i-spark-notebook-s3:3.6']
         return template.render(image_list=image_list)
 
     def options_from_form(self, formdata):
