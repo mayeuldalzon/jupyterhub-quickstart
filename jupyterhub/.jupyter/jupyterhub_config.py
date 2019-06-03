@@ -78,7 +78,7 @@ def loggedin_hook(authenticator, handler, authentication):
     vault_url = os.environ['VAULT_URL']
     client = hvac.Client(url=vault_url)
     client.token = os.environ['VAULT_CLIENT_TOKEN']
-
+    print('users/' + user_id + '/ceph')
     if client.is_authenticated():
         secret_version_response = client.secrets.kv.v2.read_secret_version(
             mount_point='valeria',
