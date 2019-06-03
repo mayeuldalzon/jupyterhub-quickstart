@@ -82,7 +82,7 @@ def loggedin_hook(authenticator, handler, authentication):
     if client.is_authenticated():
         secret_version_response = client.secrets.kv.v2.read_secret_version(
             mount_point='valeria',
-            path='users/' + user_id + 'ceph',
+            path='users/' + user_id + '/ceph',
         )   
         AWS_ACCESS_KEY_ID = secret_version_response['data']['data']['AWS_ACCESS_KEY_ID']
         AWS_SECRET_ACCESS_KEY = secret_version_response['data']['data']['AWS_SECRET_ACCESS_KEY']
