@@ -69,23 +69,6 @@ c.GenericOAuthenticator.tls_verify = False
 
 # Get access and secret key for logged in user and inject in notebook
 import hvac
-
-user_id=authentication['name']
-    vault_url = os.environ['VAULT_URL']
-    client = hvac.Client(url=vault_url)
-    client.token = os.environ['VAULT_CLIENT_TOKEN']
-    if client.is_authenticated():
-        secret_version_response = client.secrets.kv.v2.read_secret_version(
-            mount_point='valeria',
-            path='users/' + user_id + '/ceph',
-        )   
-        AWS_ACCESS_KEY_ID = secret_version_response['data']['data']['AWS_ACCESS_KEY_ID']
-        AWS_SECRET_ACCESS_KEY = secret_version_response['data']['data']['AWS_SECRET_ACCESS_KEY']
-    else:
-        AWS_ACCESS_KEY_ID = 'none'
-        AWS_SECRET_ACCESS_KEY = 'none'
-
-
 def loggedin_hook(authenticator, handler, authentication):
     s3_endpoint_url = os.environ.get('S3_ENPOINT_URL')
     c.Spawner.environment.update(dict(S3_ENPOINT_URL=s3_endpoint_url,AWS_ACCESS_KEY_ID=AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY=AWS_SECRET_ACCESS_KEY))
