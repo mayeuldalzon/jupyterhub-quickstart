@@ -7,10 +7,6 @@ c.JupyterHub.spawner_class = ULKubeSpawner
 # Initialize environment
 c.Spawner.environment = {}
 
-# Retrieve S3ContentManager infomation and update env var to pass to notebooks
-s3_endpoint_url = os.environ.get('S3_ENPOINT_URL')
-c.Spawner.environment.update(dict(S3_ENPOINT_URL=s3_endpoint_url))
-
 # Keep Spark vars in notebooks
 c.Spawner.env_keep = ['PYSPARK_SUBMIT_ARGS', 'PYSPARK_DRIVER_PYTHON', 'PYSPARK_DRIVER_PYTHON_OPTS', 'SPARK_HOME', 'SPARK_CLUSTER', 'PYTHONPATH']
 
@@ -89,7 +85,9 @@ def loggedin_hook(authenticator, handler, authentication):
     else:
         AWS_ACCESS_KEY_ID = 'none'
         AWS_SECRET_ACCESS_KEY = 'none'
-    c.Spawner.environment.update(dict(AWS_ACCESS_KEY_ID=AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY=AWS_SECRET_ACCESS_KEY))
+    # Retrieve S3ContentManager infomation and update env var to pass to notebooks
+    s3_endpoint_url = os.environ.get('S3_ENPOINT_URL')
+    c.Spawner.environment.update(dict(S3_ENPOINT_URL=s3_endpoint_url,AWS_ACCESS_KEY_ID=AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY=AWS_SECRET_ACCESS_KEY))
     return authentication
 
 c.GenericOAuthenticator.post_auth_hook = loggedin_hook
