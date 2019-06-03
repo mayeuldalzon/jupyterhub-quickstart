@@ -86,8 +86,8 @@ def loggedin_hook(authenticator, handler, authentication):
         AWS_ACCESS_KEY_ID = secret_version_response['data']['data']['AWS_ACCESS_KEY_ID']
         AWS_SECRET_ACCESS_KEY = secret_version_response['data']['data']['AWS_SECRET_ACCESS_KEY']
     else:
-        AWS_ACCESS_KEY_ID = ''
-        AWS_SECRET_ACCESS_KEY = ''
+        AWS_ACCESS_KEY_ID = 'none'
+        AWS_SECRET_ACCESS_KEY = 'none'
     c.Spawner.environment.update(dict(AWS_ACCESS_KEY_ID=AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY=AWS_SECRET_ACCESS_KEY))
     return authentication
 
