@@ -74,6 +74,7 @@ c.GenericOAuthenticator.tls_verify = False
 # Get access and secret key for logged in user and inject in notebook
 import hvac
 def loggedin_hook(authenticator, handler, authentication):
+    print('entering loggedin')
     user_id=authentication['name']
     vault_url = os.environ['VAULT_URL']
     client = hvac.Client(url=vault_url)
