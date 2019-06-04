@@ -86,7 +86,7 @@ def get_S3_keys(spawner):
         AWS_SECRET_ACCESS_KEY = 'none'
     # Retrieve S3ContentManager infomation and update env var to pass to notebooks
     s3_endpoint_url = os.environ.get('S3_ENPOINT_URL')
-    c.Spawner.environment.update(dict(S3_ENPOINT_URL=s3_endpoint_url,AWS_ACCESS_KEY_ID=AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY=AWS_SECRET_ACCESS_KEY))
+    spawner.environment.update(dict(S3_ENPOINT_URL=s3_endpoint_url,AWS_ACCESS_KEY_ID=AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY=AWS_SECRET_ACCESS_KEY))
 
 c.Spawner.pre_spawn_hook = get_S3_keys
 
