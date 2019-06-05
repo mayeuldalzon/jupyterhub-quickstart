@@ -63,12 +63,12 @@
         },
 	{
 	    "name": "VAULT_URL",
-            "value": 'https://vault-vault.svd-pca.svc.ulaval.ca',
+            "value": "ttps://vault-vault.svd-pca.svc.ulaval.ca"
 	    "required": true
 	 },
 	 {
 	    "name": "VAULT_CLIENT_TOKEN",
-            "value": 's.VyUW4VZAn195JTnq8evKRXfX',
+            "value": "s.VyUW4VZAn195JTnq8evKRXfX",
 	    "required": true
 	 } 
     ],
