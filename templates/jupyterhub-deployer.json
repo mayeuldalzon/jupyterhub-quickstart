@@ -63,7 +63,7 @@
         },
 	{
 	    "name": "VAULT_URL",
-            "value": "ttps://vault-vault.svd-pca.svc.ulaval.ca"
+            "value": "ttps://vault-vault.svd-pca.svc.ulaval.ca",
 	    "required": true
 	 },
 	 {
