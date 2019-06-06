@@ -235,7 +235,11 @@
                                     {
                                         "name": "JUPYTERHUB_COOKIE_SECRET",
                                         "value": "${COOKIE_SECRET}"
-                                    }
+                                    },
+				    {
+					 "name": "VAULT_URL",
+                                         "value": "${VAULT_URL}"
+				    }
                                 ],
                                 "volumeMounts": [
                                     {
