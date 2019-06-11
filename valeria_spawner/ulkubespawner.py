@@ -10,9 +10,6 @@ class ULKubeSpawner(KubeSpawner):
                       's2i-tensorflow-notebook-s3:3.6',
                       's2i-tensorflow-exp-s3:3.6',
                       's2i-minimal-notebook:3.6',
-                     's2i-pyspark-notebook-s3:3.6',
-                     's2i-spark-minimal-notebook:3.6',
-                     's2i-spark-scipy-notebook:3.6',
                      's2i-spark-notebook-s3:3.6',
                      's2i-r-notebook-s3:3.6',
                      's2i-r-minimal-notebook-s3:3.6']
