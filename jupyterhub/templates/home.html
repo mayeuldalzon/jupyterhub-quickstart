@@ -1,34 +1,109 @@
-{% extends "page.html" %}
+{% extends "templates/home.html" %}
 
 {% from "vars.html" import keycloak_account_url %}
 
 {% block main %}
-
 <div class="container">
   <div class="row">
     <div class="text-center">
       {% if user.running %}
       <a id="stop" role="button" class="btn btn-lg btn-danger">Stop My Server</a>
       {% endif %}
-      <a id="start"role="button" class="btn btn-lg btn-primary" href="{{ url }}">
+      <a id="start" role="button" class="btn btn-lg btn-primary" href="{{ url }}">
       {% if not user.running %}
-      Start
+      Start My Server
+      {% else %}
+      My Workspace
       {% endif %}
-        My Server
       </a>
     </div>
+  </div>
+
+  </br>
+
+  <div class="row">
     <div class="text-center">
-      <a id="account"role="button" class="btn btn-lg btn-secondary" href="https://portal-valeriademo.svd-pca.svc.ulaval.ca/" target="_blank">Valeria Portal</a>
-      <a id="account"role="button" class="btn btn-lg btn-secondary" href="{{ keycloak_account_url }}" target="_blank">Valeria Account</a>
+      <a id="account"role="button" class="btn btn-lg btn-primary" href="{{ keycloak_account_url }}" target="_blank">My KeyCloak Account</a>
     </div>
   </div>
+
+  </br>
+
+  <div class="row">
+    <div class="text-center">
+      <a id="scale-down" role="button" class="scale-down btn btn-lg btn-primary" target="_blank">Scale Down Workers</a>
+      <a id="scale-up" role="button" class="scale-up btn btn-lg btn-primary" target="_blank">Scale Up Workers</a>
+      <a id="restart" role="button" class="restart btn btn-lg btn-primary" target="_blank">Restart Workers</a>
+    </div>
+    </div>
+  </div>
+  </br>
+
+<div class="row">
+<div class="text-center">
+
+<script>
+var replicas = 0;
+function update_pod_list() {
+  $.ajax({
+    type: "GET",
+    url: "/services/dask-controller/pods",
+  })
+  .done(function( data ) {
+    var tableHtml = '';
+    replicas = data.length;
+    for (i = 0, ilen = data.length; i < ilen; ++i) {
+      tableHtml += '<tr>';
+      for (j = 0, jlen = data[i].length; j < jlen; ++j) {
+        tableHtml += '<td>' + data[i][j] + '</td>';
+      }
+      tableHtml += '</tr>';
+    }
+    $("#table-box").html(tableHtml)
+  }).fail(function(jqXHR, textStatus, errorThrown) {
+    console.log(jqXHR, textStatus, errorThrown);
+  });
+}
+function scale_pod(replicas) {
+  $.ajax({
+    type: "GET",
+    url: "/services/dask-controller/scale",
+    data: {
+      replicas: replicas,
+    }
+  });
+}
+function restart_pods() {
+  $.ajax({
+    type: "GET",
+    url: "/services/dask-controller/restart",
+  });
+}
+$(document).ready(function(){
+  $('.scale-down').click(function(e){
+      e.preventDefault();
+      scale_pod(replicas-1);
+  });
+  $('.scale-up').click(function(e){
+    e.preventDefault();
+    if (replicas > 0) {
+      scale_pod(replicas+1);
+    }
+  });
+  $('.restart').click(function(e){
+    e.preventDefault();
+    restart_pods();
+  });
+  update_pod_list();
+  setInterval(update_pod_list, 1000*1);
+});
+</script>
+
+<table align="center" border="2" cellpadding="4" cellspacing="5" id="table-box" >
+</table>
+
+</div>
 </div>
 
-{% endblock %}
-
-{% block script %}
-{{ super() }}
-<script type="text/javascript">
-require(["home"]);
-</script>
+</div>
 {% endblock %}
