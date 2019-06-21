@@ -114,14 +114,44 @@
         },
 	{
 	    "name": "VAULT_URL",
-            "value": "ttps://vault-vault.svd-pca.svc.ulaval.ca",
+            "value": "https://vault-vault.svd-pca.svc.ulaval.ca",
 	    "required": true
 	 },
 	 {
 	    "name": "VAULT_CLIENT_TOKEN",
             "value": "s.VyUW4VZAn195JTnq8evKRXfX",
 	    "required": true
-	 }
+	 },
+	 {
+            "name": "DASK_CLUSTER_NAME",
+            "value": "dask",
+            "required": true
+        },
+        {
+	    "name": "DASK_WORKER_REPLICAS",
+	    "value": "3",
+	    "required": true
+	},
+	{
+            "name": "DASK_CONTROLLER_API_TOKEN",
+            "generate": "expression",
+            "from": "[a-f0-9]{32}",
+            "required": true
+        },
+	{
+	    "name": "DASK_WORKER_MEMORY",
+	    "value": "1Gi",
+	    "required": true
+	},
+	{
+	    "name": "DASK_MAX_WORKER_REPLICAS",
+	    "value": "5",
+	    "required": true
+	},
+	{
+            "name": "DASK_IDLE_CLUSTER_TIMEOUT",
+            "value": "600"
+        }
     ],
     "objects": [
         {
@@ -272,6 +302,30 @@
                                         "name": "JUPYTERHUB_NOTEBOOK_MEMORY",
                                         "value": "${NOTEBOOK_MEMORY}"
                                     },
+				    {
+                                        "name": "DASK_IDLE_CLUSTER_TIMEOUT",
+                                        "value": "${DASK_IDLE_CLUSTER_TIMEOUT}"
+                                    },
+                                    {
+                                        "name": "DASK_CLUSTER_NAME",
+                                        "value": "${DASK_CLUSTER_NAME}"
+                                    },
+                                    {
+                                        "name": "DASK_CONTROLLER_API_TOKEN",
+                                        "value": "${DASK_CONTROLLER_API_TOKEN}"
+                                    },
+                                    {
+                                        "name": "DASK_WORKER_MEMORY",
+                                        "value": "${DASK_WORKER_MEMORY}"
+                                    },
+                                    {
+                                        "name": "DASK_WORKER_REPLICAS",
+                                        "value": "${DASK_WORKER_REPLICAS}"
+                                    },
+                                    {
+                                        "name": "DASK_MAX_WORKER_REPLICAS",
+                                        "value": "${DASK_MAX_WORKER_REPLICAS}"
+                                    },
                                     {
                                         "name": "JUPYTERHUB_DATABASE_PASSWORD",
                                         "value": "${DATABASE_PASSWORD}"
@@ -327,6 +381,14 @@
                                     {
                                         "name": "S3_BUCKET",
                                         "value": "${S3_BUCKET}"
+                                    },
+                                    {
+                                        "name": "VAULT_URL",
+                                        "value": "${VAULT_URL}"
+                                    },
+                                    {
+                                        "name": "VAULT_CLIENT_TOKEN",
+                                        "value": "${VAULT_CLIENT_TOKEN}"
                                     }
                                 ],
                                 "volumeMounts": [
