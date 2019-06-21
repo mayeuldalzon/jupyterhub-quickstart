@@ -139,13 +139,13 @@
             "required": true
         },
 	{
-	    "name": "DASK_MAX_WORKER_REPLICAS",
-	    "value": "5",
+	    "name": "DASK_WORKER_MEMORY",
+	    "value": "1Gi",
 	    "required": true
 	},
 	{
-	    "name": "DASK_WORKER_MEMORY",
-	    "value": "1Gi",
+	    "name": "DASK_MAX_WORKER_REPLICAS",
+	    "value": "5",
 	    "required": true
 	}
     ],
