@@ -210,7 +210,7 @@ worker_deployment_template = string.Template("""
                 "containers": [
                     {
                         "name": "worker",
-                        "image": "${application}-notebook-img:latest",
+                        "image": "s2i-minimal-notebook-py36-s3:3.6",
                         "command": [
                             "start-daskworker.sh"
                         ],
