@@ -93,21 +93,6 @@
             "required": false
         },
         {
-            "name": "S3_ACCESS_KEY_ID",
-            "value": "",
-            "required": true
-        },
-        {
-            "name": "S3_SECRET_ACCESS_KEY",
-            "value": "",
-            "required": true
-        },
-        {
-            "name": "S3_ENPOINT_URL",
-            "value": "http://rgw-svd.exp.ulaval.ca",
-            "required": true
-        },
-        {
             "name": "S3_BUCKET",
             "value": "jupyter-bucket",
             "required": true
