@@ -37,7 +37,7 @@ def extract_hostname(routes, name):
 jupyterhub_name = os.environ.get('JUPYTERHUB_SERVICE_NAME')
 jupyterhub_hostname = extract_hostname(routes, jupyterhub_name)
 
-keycloak_hostname = 'keycloak-valeriademo.svd-pca.svc.ulaval.ca'
+keycloak_hostname = 'auth.at.valeria.science'
 
 keycloak_realm = os.environ.get('KEYCLOAK_REALM')
 
